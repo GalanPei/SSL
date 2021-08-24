@@ -11,6 +11,8 @@ class LPA(object):
     def __init__(self, labeled_data, unlabeled_data):
         self.labeled_data = labeled_data
         self.unlabeled_data = unlabeled_data
+        self.num_sample = unlabeled_data.shape[0]
+        self.num_labeled = labeled_data.shape[0]
 
     def epsilonWeight(self, t, epsilon):
         if t < epsilon:
@@ -24,14 +26,12 @@ class LPA(object):
         # return 1 / math.sqrt(2 * math.pi) * math.exp(-t ** 2 / 2 / epsilon ** 2)
 
     def propagationMatrix(self, epsilon, weight_fun):
-        l = self.labeled_data.shape[0]  # l - number of labeled data
-        u = self.unlabeled_data.shape[0]  # u - number of unlabeled data
         # unlabeled_data = unlabeled_data.reshape((u, 2))
         learning_data = np.vstack((self.labeled_data[:, 0:-1], self.unlabeled_data))
-        mat_W = np.zeros((l + u, l + u), np.float32)
-        inv_sqrt_D = np.zeros((l + u, l + u), np.float32)
-        for i in range(l + u):
-            for j in range(l + u):
+        mat_W = np.zeros((self.num_labeled + self.num_sample, self.num_labeled + self.num_sample), np.float32)
+        inv_sqrt_D = np.zeros((self.num_labeled + self.num_sample, self.num_labeled + self.num_sample), np.float32)
+        for i in range(self.num_labeled + self.num_sample):
+            for j in range(self.num_labeled + self.num_sample):
                 if weight_fun == 'Gaussian':
                     mat_W[i, j] = self.gaussianWeight(np.linalg.norm(learning_data[i, :] - learning_data[j, :]),
                                                       epsilon)
@@ -95,9 +95,14 @@ class LPA(object):
         vec_label = np.sign(np.vstack((f_l, f_u)), axis=1)
         return vec_label + 1
 
+    def accuracy(self, true_label):
+        error_num = 0
+        for i in range(self.num_sample):
+            if unlabeled_data[i, 0] - true_label[i, 0] < 1e-5:
+                error_num += 1
+        return error_num/self.num_sample
+
     def showResult(self, vec_label):
-        labels = self.labeled_data[:, -1]
-        label_list = np.unique(labels)
         learning_data = np.vstack((self.labeled_data[:, 0:-1], self.unlabeled_data))
         colors = list(mcolors.TABLEAU_COLORS.keys())
         for i in range(vec_label.shape[0]):

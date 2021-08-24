@@ -4,18 +4,19 @@ import matplotlib.pyplot as plt
 import TSVM
 import numpy as np
 
-n = 300
+N = 500
+n = 20
 epsilon = 0.8
 
 plt.figure(1)
-labeled_multi, unlabeled_multi, true_multi = GenerateGraph.SyntheticGraph(n)
+labeled_multi, unlabeled_multi, true_multi = GenerateGraph.SyntheticGraph(N, n)
 model_1 = LPA.LPA(labeled_multi, unlabeled_multi)
 multi_label = model_1.labelPropImp(epsilon, weight_fun='Epsilon', alpha=0.5, iterMax=1e4, tol=1e-5)
 model_1.showResult(multi_label)
 plt.show()
 
 plt.figure(2)
-labeled_binary, unlabeled_binary, true_binary = GenerateGraph.SyntheticGraph(n, GraphType='Binary')
+labeled_binary, unlabeled_binary, true_binary = GenerateGraph.SyntheticGraph(N, n, GraphType='Binary')
 model_2 = LPA.LPA(labeled_binary, unlabeled_binary)
 binary_label = model_2.labelPropImp(epsilon, weight_fun='Epsilon', alpha=0.5, iterMax=1e4, tol=1e-5)
 model_2.showResult(binary_label)
