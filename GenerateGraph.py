@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 def SyntheticGraph(N, n=10, GraphType='Multi'):
     theta_1 = np.random.uniform(np.pi, 7 / 4 * np.pi, size=(N, 1))
-    theta_2 = np.random.uniform(-1 / 2 * np.pi, 1 / 10 * np.pi, size=(N, 1))
+    theta_2 = np.random.uniform(-0.6 * np.pi, 1 / 9 * np.pi, size=(N, 1))
     theta_3 = np.random.uniform(0, np.pi, size=(N, 1))
     r_1 = np.random.uniform(2.5, 3.5, size=(N, 1))
     r_2 = np.random.uniform(2.5, 3.5, size=(N, 1))

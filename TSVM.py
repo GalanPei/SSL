@@ -1,4 +1,5 @@
 # coding:utf-8
+# This code is the original work of https://github.com/horcham/TSVM
 import numpy as np
 import sklearn.svm as svm
 import matplotlib.pyplot as plt
@@ -113,20 +114,36 @@ class TSVM(object):
         return self.clf.predict(X)
 
     def save(self, path='./TSVM.model'):
-        '''
+        """
         Save TSVM to model_path
         Parameters
         ----------
         model_path: model path of TSVM
                         model should be svm in sklearn
-        '''
+        """
         joblib.dump(self.clf, path)
 
-    def showResult(self, data, label):
-        label = 1/2*label + 1
+    def showResult(self, X1, X2, Y1, Y2):
+        """
+        :param X1: labeled data
+                   np.array, shape[l, m], n: number of labeled data, m: number of features
+        :param X2: unlabeled data
+                   np.array, shape[n, m], n: number of unlabeled data, m: number of features
+        :param Y1: labels of labeled data
+                   np.array, shape[n, ], n: number of labeled data
+        :param Y2: labels of unlabeled data
+                   np.array, shape[n, ], n: number of unlabeled data
+        :return: the plot of the train result
+        """
+        Y_u = 1/2*Y2 + 1
         colors = list(mcolors.TABLEAU_COLORS.keys())
-        for i in range(data.shape[0]):
-            plt.plot(data[i, 0], data[i, 1], 'o', markersize=2,
-                     color=mcolors.TABLEAU_COLORS[colors[int(label[i])]])
-        plt.xlabel(r'$x_1$')
-        plt.ylabel(r'$x_2$')
+        # Plot the unlabeled nodes as hollow circles
+        for i in range(X2.shape[0]):
+            plt.plot(X2[i, 0], X2[i, 1], 'o', markersize=2,
+                     color=mcolors.TABLEAU_COLORS[colors[int(Y_u[i])]], markerfacecolor='white')
+        # Plot the labeled nodes as filled triangles
+        for i in range(X1.shape[0]):
+            plt.plot(X1[i, 0], X1[i, 1], '^', markersize=4,
+                     color='black', markerfacecolor=mcolors.TABLEAU_COLORS[colors[int(Y1[i])]])
+        plt.xlabel(r'$x_1$', fontsize=14)
+        plt.ylabel(r'$x_2$', fontsize=14)
