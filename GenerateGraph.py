@@ -4,6 +4,26 @@ import math
 import matplotlib.pyplot as plt
 
 
+def SimpleGraph(N, n):
+    x1_l = np.random.uniform(-1, 1, size=(n, 1))
+    x2_l = np.random.uniform(-1, 1, size=(n, 1))
+    # x1_l = np.array([[0], [1]])
+    # x2_l = np.array([[0], [1]])
+    x1_u = np.random.uniform(-1, 1, size=(N, 1))
+    x2_u = np.random.uniform(-1, 1, size=(N, 1))
+    f_l = np.zeros((n, 1))
+    true_label = np.zeros((N, 1))
+    for i in range(n):
+        if x1_l[i, 0] + x2_l[i, 0] > 0:
+            f_l[i, 0] = 1
+    for i in range(N):
+        if x1_u[i, 0] + x2_u[i, 0] > 0:
+            true_label[i, 0] = 1
+    labeled_data = np.hstack((x1_l, x2_l, f_l))
+    unlabeled_data = np.hstack((x1_u, x2_u))
+    return labeled_data, unlabeled_data, true_label
+
+
 def SyntheticGraph(N, n=10, GraphType='Multi'):
     theta_1 = np.random.uniform(np.pi, 7 / 4 * np.pi, size=(N, 1))
     theta_2 = np.random.uniform(-0.6 * np.pi, 1 / 9 * np.pi, size=(N, 1))
