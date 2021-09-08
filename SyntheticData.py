@@ -7,15 +7,16 @@ import numpy as np
 
 N = 500
 n = 3
-epsilon = 0.8
+epsilon = 0.4
 
 labeled_multi, unlabeled_multi, true_multi = GenerateGraph.SyntheticGraph(N, n)
 model_1 = LPA.LPA(labeled_multi, unlabeled_multi)
-iter_num = np.array([10, 100])
+iter_num = np.array([1, 5, 10, 20])
 for i in range(iter_num.shape[0]):
     multi_label, full_multi = model_1.labelPropImp(epsilon, weight_fun='Epsilon', alpha=0.5, iterMax=iter_num[i], tol=0)
+    plt.figure()
     model_1.showResult(multi_label)
-    model_1.PlotWeight(multi_label)
+plt.show()
 # plt.figure(2)
 # labeled_binary, unlabeled_binary, true_binary = GenerateGraph.SyntheticGraph(N, n, GraphType='Binary')
 # model_2 = LPA.LPA(labeled_binary, unlabeled_binary)

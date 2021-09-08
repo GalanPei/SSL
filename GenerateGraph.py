@@ -7,8 +7,6 @@ import matplotlib.pyplot as plt
 def SimpleGraph(N, n):
     x1_l = np.random.uniform(-1, 1, size=(n, 1))
     x2_l = np.random.uniform(-1, 1, size=(n, 1))
-    # x1_l = np.array([[0], [1]])
-    # x2_l = np.array([[0], [1]])
     x1_u = np.random.uniform(-1, 1, size=(N, 1))
     x2_u = np.random.uniform(-1, 1, size=(N, 1))
     f_l = np.zeros((n, 1))
@@ -26,7 +24,7 @@ def SimpleGraph(N, n):
 
 def SyntheticGraph(N, n=10, GraphType='Multi'):
     theta_1 = np.random.uniform(np.pi, 7 / 4 * np.pi, size=(N, 1))
-    theta_2 = np.random.uniform(-0.6 * np.pi, 1 / 9 * np.pi, size=(N, 1))
+    theta_2 = np.random.uniform(-0.55 * np.pi, 1 / 9 * np.pi, size=(N, 1))
     theta_3 = np.random.uniform(0, np.pi, size=(N, 1))
     r_1 = np.random.uniform(2.5, 3.5, size=(N, 1))
     r_2 = np.random.uniform(2.5, 3.5, size=(N, 1))
