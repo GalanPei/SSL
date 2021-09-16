@@ -31,7 +31,7 @@ class LPA(object):
 
     def gaussianWeight(self, t, epsilon):
         return 1 / math.sqrt(2 * math.pi) / (epsilon ** self.dimension) * math.exp(
-            -t ** 2 / 2 / epsilon ** self.dimension)
+            -t ** 2 / 2 / epsilon ** 2)
         # return 1 / math.sqrt(2 * math.pi) * math.exp(-t ** 2 / 2 / epsilon ** 2)
 
     def weightMatrix(self, epsilon, weight_fun):
@@ -187,10 +187,10 @@ class LPA(object):
                      color=mcolors.TABLEAU_COLORS[colors[int(f_u[i])]], markerfacecolor='white')
         # Plot the labeled nodes as filled triangles
         for i in range(self.num_labeled):
-            plt.plot(self.labeled_data[i, 0], self.labeled_data[i, 1], '^', markersize=4,
+            plt.plot(self.labeled_data[i, 0], self.labeled_data[i, 1], '^', markersize=8,
                      color='black', markerfacecolor=mcolors.TABLEAU_COLORS[colors[int(f_l[i])]])
-        plt.xlabel(r'$x_1$', fontsize=14)
-        plt.ylabel(r'$x_2$', fontsize=14)
+        # plt.xlabel(r'$x_1$', fontsize=14)
+        # plt.ylabel(r'$x_2$', fontsize=14)
         # plt.show()
 
     def PlotWeight(self, vec_label):

@@ -5,11 +5,9 @@ import sklearn.svm as svm
 import matplotlib.pyplot as plt
 from sklearn.externals import joblib
 import matplotlib.colors as mcolors
+import PlotStyle
 import pickle
 from sklearn.model_selection import train_test_split, cross_val_score
-
-plt.rc('text', usetex=True)
-plt.rc('font', family='serif')
 
 
 class TSVM(object):
@@ -64,9 +62,9 @@ class TSVM(object):
         while self.Cu < self.Cl:
             self.clf.fit(X3, Y3, sample_weight=sample_weight)
             while True:
-                Y2_d = self.clf.decision_function(X2)    # linear: w^Tx + b
+                Y2_d = self.clf.decision_function(X2)  # linear: w^Tx + b
                 Y2 = Y2.reshape(-1)
-                epsilon = 1 - Y2 * Y2_d   # calculate function margin
+                epsilon = 1 - Y2 * Y2_d  # calculate function margin
                 positive_set, positive_id = epsilon[Y2 > 0], X2_id[Y2 > 0]
                 negative_set, negative_id = epsilon[Y2 < 0], X2_id[Y2 < 0]
                 positive_max_id = positive_id[np.argmax(positive_set)]
@@ -80,7 +78,7 @@ class TSVM(object):
                     self.clf.fit(X3, Y3, sample_weight=sample_weight)
                 else:
                     break
-            self.Cu = min(2*self.Cu, self.Cl)
+            self.Cu = min(2 * self.Cu, self.Cl)
             sample_weight[len(X1):] = self.Cu
 
     def score(self, X, Y):
@@ -135,7 +133,7 @@ class TSVM(object):
                    np.array, shape[n, ], n: number of unlabeled data
         :return: the plot of the train result
         """
-        Y_u = 1/2*Y2 + 1
+        Y_u = 1 / 2 * Y2 + 1
         colors = list(mcolors.TABLEAU_COLORS.keys())
         # Plot the unlabeled nodes as hollow circles
         for i in range(X2.shape[0]):
@@ -143,7 +141,7 @@ class TSVM(object):
                      color=mcolors.TABLEAU_COLORS[colors[int(Y_u[i])]], markerfacecolor='white')
         # Plot the labeled nodes as filled triangles
         for i in range(X1.shape[0]):
-            plt.plot(X1[i, 0], X1[i, 1], '^', markersize=4,
+            plt.plot(X1[i, 0], X1[i, 1], '^', markersize=8,
                      color='black', markerfacecolor=mcolors.TABLEAU_COLORS[colors[int(Y1[i])]])
         plt.xlabel(r'$x_1$', fontsize=14)
         plt.ylabel(r'$x_2$', fontsize=14)

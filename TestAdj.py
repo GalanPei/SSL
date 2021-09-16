@@ -7,7 +7,7 @@ import PlotStyle
 database = 'cora'
 model = ['gcn', 'gcn_test1', 'gcn_test2', 'gcn_test3']
 colors = list(mcolors.TABLEAU_COLORS.keys())
-max_epoch = 30
+max_epoch = 100
 
 fig = plt.figure()
 ax = AA.Subplot(fig,111)
