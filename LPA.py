@@ -134,7 +134,6 @@ class LPA(object):
         learning_data = np.vstack((self.labeled_data[:, 0:-1], self.unlabeled_data))
         mat_W = np.zeros((l + u, l + u))
         inv_D = np.zeros((l + u, l + u))
-        f_u = np.zeros((u, 1))
         for i in range(l + u):
             for j in range(l + u):
                 if weight_fun == 'Gaussian':

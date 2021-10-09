@@ -76,15 +76,5 @@ def main_1():
     plt.show()
 
 
-def main_2():
-    mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
-    labeled_num = 500
-    unlabeled_num = range(500, 54500, 1000)  # number of unlabeled nodes
-    feature_dim = mnist.train.images.shape[1]  # dimension of the features
-    train_images = mnist.train.images  # data of nodes
-    train_labels = mnist.train.labels  # labels of nodes
-
-
 if __name__ == '__main__':
     main_1()
-    main_2()
