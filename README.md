@@ -1,4 +1,4 @@
-##Graph Based Semi-Supervised Learning
+# Graph Based Semi-Supervised Learning
 
 Author: Yitao Pei
 
